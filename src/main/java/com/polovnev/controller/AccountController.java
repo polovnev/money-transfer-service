@@ -4,10 +4,8 @@ import com.polovnev.exception.AccountIdIsNotExisted;
 import com.polovnev.model.Account;
 import com.polovnev.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import static com.polovnev.constant.Constants.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +30,18 @@ public class AccountController {
             response.sendRedirect(ERROR_URL);
         }
         return account;
+    }
 
-
+    @DeleteMapping(ID_PARAM)
+    public String deleteAccount(@PathVariable long id, HttpServletResponse response,
+                                HttpSession httpSession) throws IOException {
+        try {
+            accountService.removeAccount(id);
+        } catch (AccountIdIsNotExisted ex) {
+            httpSession.setAttribute(EXCEPTION_ATTRIBUTE, ex);
+            response.sendRedirect(ERROR_URL);
+        }
+        return "Account with id = " + id + " was deleted";
     }
 
 }
