@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class ErrorControllerImpl implements ErrorController {
+public class DedicatedErrorController implements ErrorController {
 
     @ResponseBody
     @RequestMapping(ERROR_URL)
