@@ -15,5 +15,8 @@ public class Constants {
     public static final String EUR_CURRENCY = "Euro";
     public static final String USD_CURRENCY = "United States dollar";
 
+    public static final String BALANCE_REQUEST_PARAM = "balance";
+    public static final String CURRENCY_REQUEST_PARAM = "currency";
+
 
 }

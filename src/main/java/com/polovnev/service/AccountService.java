@@ -2,11 +2,10 @@ package com.polovnev.service;
 
 import com.polovnev.exception.AccountIdIsNotExisted;
 import com.polovnev.model.Account;
-import com.polovnev.model.Currency;
 
 public interface AccountService {
 
-    void addAccount(double balance, Currency currency);
+    Account addAccount(double balance, String currency);
 
     Account getAccountById(long id) throws AccountIdIsNotExisted;
 

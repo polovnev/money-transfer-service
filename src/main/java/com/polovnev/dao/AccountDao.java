@@ -9,4 +9,8 @@ public interface AccountDao {
 
     void deleteAccountById(long id) throws AccountIdIsNotExisted;
 
+    long generateAccountId();
+
+    void addAccount(Account account);
+
 }

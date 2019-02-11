@@ -15,8 +15,12 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public void addAccount(double balance, Currency currency) {
-
+    public Account addAccount(double balance, String currencyString) {
+        long id = accountDao.generateAccountId();
+        Currency currency = Currency.valueOf(currencyString);
+        Account account = new Account(id, balance, currency);
+        accountDao.addAccount(account);
+        return account;
     }
 
     @Override

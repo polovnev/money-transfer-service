@@ -44,4 +44,23 @@ public class AccountController {
         return "Account with id = " + id + " was deleted";
     }
 
+    @PutMapping(ID_PARAM)
+    public String updateAccount(@PathVariable long id, @RequestParam(BALANCE_REQUEST_PARAM) double balance,
+                                HttpServletResponse response,
+                                HttpSession httpSession) throws IOException {
+        try {
+            accountService.increaseBalance(id, balance);
+        } catch (AccountIdIsNotExisted ex) {
+            httpSession.setAttribute(EXCEPTION_ATTRIBUTE, ex);
+            response.sendRedirect(ERROR_URL);
+        }
+        return "Account with id = " + id + " was updated";
+    }
+
+    @PostMapping
+    public Account addAccount(@RequestParam(BALANCE_REQUEST_PARAM) double balance,
+                                @RequestParam(CURRENCY_REQUEST_PARAM) String currency) {
+        return accountService.addAccount(balance, currency);
+    }
+
 }

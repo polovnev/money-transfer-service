@@ -31,4 +31,14 @@ public class AccountDaoImpl implements AccountDao {
         Account account = getAccountById(id);
         accounts.remove(account);
     }
+
+    @Override
+    public long generateAccountId() {
+        return accounts.stream().mapToLong(a -> a.getId()).max().getAsLong() + 1;
+    }
+
+    @Override
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
 }
