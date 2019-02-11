@@ -34,6 +34,9 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public long generateAccountId() {
+        if(accounts.size() == 0) {
+            return 0;
+        }
         return accounts.stream().mapToLong(a -> a.getId()).max().getAsLong() + 1;
     }
 

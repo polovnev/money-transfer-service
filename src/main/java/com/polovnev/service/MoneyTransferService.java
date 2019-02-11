@@ -1,10 +1,16 @@
 package com.polovnev.service;
 
+import com.polovnev.exception.AccountIdIsNotExisted;
+import com.polovnev.exception.BalanceIsNotEnough;
+import com.polovnev.exception.MoneyTransferIdIsNotExisted;
 import com.polovnev.exception.UnsupportedAccountCurrencyException;
-import com.polovnev.model.Account;
+import com.polovnev.model.MoneyTransfer;
 
 public interface MoneyTransferService {
 
-    String transferMoney(Account fromAccount, Account toAccount, double sum) throws UnsupportedAccountCurrencyException;
+    MoneyTransfer getMoneyTransfer(long id) throws MoneyTransferIdIsNotExisted;
+
+    MoneyTransfer transferMoney(long fromAccountId, long toAccountId, double sum)
+            throws UnsupportedAccountCurrencyException, AccountIdIsNotExisted, BalanceIsNotEnough;
 
 }

@@ -45,16 +45,17 @@ public class AccountController {
     }
 
     @PutMapping(ID_PARAM)
-    public String updateAccount(@PathVariable long id, @RequestParam(BALANCE_REQUEST_PARAM) double balance,
+    public Account updateAccount(@PathVariable long id, @RequestParam(BALANCE_REQUEST_PARAM) double balance,
                                 HttpServletResponse response,
                                 HttpSession httpSession) throws IOException {
+        Account account = null;
         try {
-            accountService.increaseBalance(id, balance);
+            account = accountService.increaseBalance(id, balance);
         } catch (AccountIdIsNotExisted ex) {
             httpSession.setAttribute(EXCEPTION_ATTRIBUTE, ex);
             response.sendRedirect(ERROR_URL);
         }
-        return "Account with id = " + id + " was updated";
+        return account;
     }
 
     @PostMapping
