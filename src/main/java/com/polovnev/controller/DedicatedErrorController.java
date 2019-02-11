@@ -1,12 +1,14 @@
 package com.polovnev.controller;
 
-import static com.polovnev.constant.Constants.*;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+
+import static com.polovnev.constant.Constants.ERROR_URL;
+import static com.polovnev.constant.Constants.EXCEPTION_ATTRIBUTE;
 
 @Controller
 public class DedicatedErrorController implements ErrorController {

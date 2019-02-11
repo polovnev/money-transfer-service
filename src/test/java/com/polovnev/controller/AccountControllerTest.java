@@ -1,11 +1,7 @@
 package com.polovnev.controller;
 
 import com.google.gson.Gson;
-import com.polovnev.constant.Constants;
 import com.polovnev.model.Account;
-
-import static org.junit.Assert.*;
-
 import com.polovnev.model.Currency;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.polovnev.constant.Constants.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.containsString;
-import static com.polovnev.constant.Constants.*;
 
 
 @RunWith(SpringRunner.class)

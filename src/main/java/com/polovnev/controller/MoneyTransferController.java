@@ -1,5 +1,6 @@
 package com.polovnev.controller;
 
+import com.polovnev.controller.util.ExceptionHandlerInController;
 import com.polovnev.exception.MoneyTransferIdIsNotExisted;
 import com.polovnev.model.MoneyTransfer;
 import com.polovnev.service.MoneyTransferService;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 import static com.polovnev.constant.Constants.*;
 
@@ -19,15 +19,17 @@ public class MoneyTransferController {
     @Autowired
     private MoneyTransferService moneyTransferService;
 
+    @Autowired
+    private ExceptionHandlerInController exceptionHandlerInController;
+
     @GetMapping(ID_PARAM)
     public MoneyTransfer getMoneyTransfer(@PathVariable long id, HttpServletResponse response,
-                                          HttpSession httpSession) throws IOException {
+                                          HttpSession httpSession){
         MoneyTransfer moneyTransfer = null;
         try {
             moneyTransfer = moneyTransferService.getMoneyTransfer(id);
         } catch (MoneyTransferIdIsNotExisted ex) {
-            httpSession.setAttribute(EXCEPTION_ATTRIBUTE, ex);
-            response.sendRedirect(ERROR_URL);
+            exceptionHandlerInController.handleExceptionInController(ex, response, httpSession);
         }
         return moneyTransfer;
     }
@@ -37,13 +39,12 @@ public class MoneyTransferController {
                                           @RequestParam(DESTINATION_ACCOUNT_ID_REQUEST_PARAM) long destinationAccountId,
                                           @RequestParam(SUM_REQUEST_PARAM) double sum,
                                           HttpServletResponse response,
-                                          HttpSession httpSession) throws IOException {
+                                          HttpSession httpSession){
         MoneyTransfer moneyTransfer = null;
         try {
             moneyTransfer = moneyTransferService.transferMoney(sourceAccountId, destinationAccountId, sum);
         } catch (Exception ex) {
-            httpSession.setAttribute(EXCEPTION_ATTRIBUTE, ex);
-            response.sendRedirect(ERROR_URL);
+            exceptionHandlerInController.handleExceptionInController(ex, response, httpSession);
         }
         return moneyTransfer;
     }
